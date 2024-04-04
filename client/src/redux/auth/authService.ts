@@ -6,7 +6,6 @@ import { BASE_URL } from "@/lib/routes";
 const loginUrl = `${BASE_URL}/users/login`;
 
 export const loginApi = async (userType: UserType) => {
-  console.log("🐬 ~ loginApi ~ userType:", userType);
   const user = userList.find((user) => user.type === userType);
 
   if (!user) {

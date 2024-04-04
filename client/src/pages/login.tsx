@@ -18,7 +18,6 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await loginApi(userType);
-      console.log("🐬 ~ handleLogin ~ res:", res);
       const userData = { username: res.username, type: userType };
       dispatch(login({ userType, token: res.token, userData }));
       navigate(ROUTES.DASHBOARD);

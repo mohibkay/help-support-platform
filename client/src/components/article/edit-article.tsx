@@ -52,7 +52,6 @@ const EditArticle = ({ article }: { article: ArticleType }) => {
   const dispatch = useDispatch();
 
   const onSubmit = async (data: FormData) => {
-    console.log("🐬 ~ onSubmit ~ data:", data);
     try {
       const updatedArticle = await updateArticle(
         article.id,

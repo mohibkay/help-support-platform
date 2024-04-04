@@ -14,7 +14,6 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state: RootState) => state.auth);
-  console.log("🐬 ~ Dashboard ~ userData:", userData);
 
   const handleLogout = () => {
     dispatch(logout());
