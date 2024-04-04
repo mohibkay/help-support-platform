@@ -51,7 +51,7 @@ const CreateTicket = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline' size='icon'>
+        <Button variant='outline'>
           <Icons.Plus />
         </Button>
       </DialogTrigger>

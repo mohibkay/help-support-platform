@@ -32,7 +32,7 @@ const Dashboard = () => {
           <Button onClick={handleLogout}>Logout</Button>
         </>
       </nav>
-      <div className='flex justify-between items-center mt-6'>
+      <div className='flex gap-x-6 justify-between items-start mt-6'>
         <TicketList />
         <ArticleList />
       </div>
