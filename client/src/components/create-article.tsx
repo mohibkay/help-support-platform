@@ -70,7 +70,7 @@ const CreateArticle = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline'>
+        <Button variant='outline' size='icon'>
           <Icons.Plus />
         </Button>
       </DialogTrigger>

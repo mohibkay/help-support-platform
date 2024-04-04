@@ -11,26 +11,26 @@ import { Icons } from "./icons";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import {
-  deleteTicketStart,
-  deleteTicketSuccess,
-  deleteTicketFailure,
-} from "../redux/ticketsSlice";
-import { deleteTicket } from "../redux/ticketsService";
+  deleteArticleStart,
+  deleteArticleSuccess,
+  deleteArticleFailure,
+} from "../redux/articlesSlice";
+import { deleteArticle } from "../redux/articlesService";
 import { useDispatch } from "react-redux";
 
-const DeleteTicket = ({ ticketId }: { ticketId: number }) => {
+const DeleteArticle = ({ articleId }: { articleId: number }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const handleDeleteTicket = async () => {
+  const handleDeleteArticle = async () => {
     try {
-      dispatch(deleteTicketStart());
-      await deleteTicket(ticketId);
-      dispatch(deleteTicketSuccess(ticketId));
+      dispatch(deleteArticleStart());
+      await deleteArticle(articleId);
+      dispatch(deleteArticleSuccess(articleId));
       setOpen(false);
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(deleteTicketFailure(error.message));
+        dispatch(deleteArticleFailure(error.message));
       }
     }
   };
@@ -38,7 +38,7 @@ const DeleteTicket = ({ ticketId }: { ticketId: number }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button variant='ghost' onClick={() => setOpen(true)}>
+        <Button variant='ghost' size='icon' onClick={() => setOpen(true)}>
           <Icons.Delete />
         </Button>
       </DialogTrigger>
@@ -47,14 +47,14 @@ const DeleteTicket = ({ ticketId }: { ticketId: number }) => {
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription>
             This action cannot be undone. This will permanently delete the
-            ticket.
+            article.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <Button variant='outline' onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button variant='destructive' onClick={handleDeleteTicket}>
+          <Button variant='destructive' onClick={handleDeleteArticle}>
             Delete
           </Button>
         </DialogFooter>
@@ -63,4 +63,4 @@ const DeleteTicket = ({ ticketId }: { ticketId: number }) => {
   );
 };
 
-export default DeleteTicket;
+export default DeleteArticle;

@@ -11,6 +11,7 @@ import RoleGate from "./auth/role-gate";
 import { USERS } from "@/lib/users";
 import ArticleCategory from "./article-category";
 import EditArticle from "./edit-article";
+import DeleteArticle from "./delete-article";
 
 const Article = ({
   id,
@@ -37,9 +38,9 @@ const Article = ({
       <CardHeader className='flex flex-row items-baseline justify-between'>
         <CardTitle>{title}</CardTitle>
         <RoleGate allowedRoles={[USERS.Support]}>
-          <div className='-space-x-4'>
+          <div>
             <EditArticle article={article} />
-            {/* <DeleteArticle articleId={id} /> */}
+            <DeleteArticle articleId={id} />
           </div>
         </RoleGate>
       </CardHeader>
