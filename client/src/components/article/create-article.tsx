@@ -77,7 +77,7 @@ const CreateArticle = () => {
       <DialogContent>
         <DialogHeader className='mb-4'>
           <DialogTitle>Create Article</DialogTitle>
-          <DialogDescription className='space-y-4 my-4'>
+          <div className='space-y-4 my-4'>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -135,7 +135,7 @@ const CreateArticle = () => {
                 </Button>
               </form>
             </Form>
-          </DialogDescription>
+          </div>
         </DialogHeader>
       </DialogContent>
     </Dialog>

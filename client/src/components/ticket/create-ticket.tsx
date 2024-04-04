@@ -1,7 +1,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -58,7 +57,7 @@ const CreateTicket = () => {
       <DialogContent>
         <DialogHeader className='mb-4'>
           <DialogTitle>Create Ticket</DialogTitle>
-          <DialogDescription className='space-y-4 my-4'>
+          <div className='space-y-4 my-4'>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -93,7 +92,7 @@ const CreateTicket = () => {
                 </Button>
               </form>
             </Form>
-          </DialogDescription>
+          </div>
         </DialogHeader>
       </DialogContent>
     </Dialog>
