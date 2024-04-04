@@ -33,6 +33,10 @@ const CreateTicket = () => {
 
   const form = useForm<FormData>({
     resolver: zodResolver(ticketSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+    },
   });
   const dispatch = useDispatch();
 
