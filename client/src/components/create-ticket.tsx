@@ -22,6 +22,7 @@ import { ticketSchema } from "@/schema/ticket";
 import { useDispatch } from "react-redux";
 import { createTicketSuccess } from "../redux/ticketsSlice";
 import { createTicket } from "../redux/ticketsService";
+import { useState } from "react";
 
 type FormData = {
   title: string;
@@ -29,6 +30,8 @@ type FormData = {
 };
 
 const CreateTicket = () => {
+  const [open, setOpen] = useState(false);
+
   const form = useForm<FormData>({
     resolver: zodResolver(ticketSchema),
   });
@@ -39,13 +42,14 @@ const CreateTicket = () => {
       const newTicket = await createTicket(data.title, data.description);
       dispatch(createTicketSuccess(newTicket));
       form.reset();
+      setOpen(false);
     } catch (error) {
       console.error("Failed to create ticket:", error);
     }
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant='outline'>
           <Icons.Plus />
