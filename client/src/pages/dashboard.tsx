@@ -18,7 +18,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <nav className='flex justify-between'>
+      <nav className='flex justify-between items-center'>
         <Link to={ROUTES.DASHBOARD}>HelpDesk</Link>
         <Button onClick={handleLogout}>Logout</Button>
       </nav>

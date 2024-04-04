@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import { login } from "../redux/authSlice";
 import { loginApi } from "../redux/authService";
-import { Button } from "@/components/ui/button";
 import { UserType } from "@/types/User";
 import { USERS } from "@/lib/users";
 import { ROUTES } from "@/lib/routes";
+import { Button } from "@/components/ui/button";
 
-const Login: React.FC = () => {
+const Login = () => {
   const [userType, setUserType] = useState<UserType>(USERS.Advertiser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,12 +30,13 @@ const Login: React.FC = () => {
     <div>
       <h2>Login As</h2>
       <form onSubmit={handleLogin}>
-        <div>
+        <div className='space-x-6 mt-4'>
           <label>
             Advertiser
             <input
               type='radio'
               value='advertiser'
+              className='ml-2'
               checked={userType === USERS.Advertiser}
               onChange={() => setUserType(USERS.Advertiser)}
             />
@@ -45,12 +46,13 @@ const Login: React.FC = () => {
             <input
               type='radio'
               value='support'
+              className='ml-2'
               checked={userType === USERS.Support}
               onChange={() => setUserType(USERS.Support)}
             />
           </label>
         </div>
-        <Button className='bg-black' type='submit'>
+        <Button type='submit' className='mt-8 px-6'>
           Login
         </Button>
       </form>
