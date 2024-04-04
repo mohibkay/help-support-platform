@@ -1,5 +1,5 @@
-import { ARTICLE_CATEGORIES } from "@/lib/article";
 import { Badge } from "./ui/badge";
+import { ArticleCategoryType } from "@/types/Article";
 
 interface ArticleCategoryProps {
   category: ArticleCategoryType;

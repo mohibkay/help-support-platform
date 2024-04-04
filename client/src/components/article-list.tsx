@@ -26,7 +26,9 @@ const ArticlesList: React.FC = () => {
         const fetchedArticles = await getArticles();
         dispatch(getArticlesSuccess(fetchedArticles));
       } catch (error) {
-        dispatch(getArticlesFailure(error.message));
+        if (error instanceof Error) {
+          dispatch(getArticlesFailure(error.message));
+        }
       }
     };
 

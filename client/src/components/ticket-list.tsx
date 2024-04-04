@@ -26,7 +26,9 @@ const TicketsList: React.FC = () => {
         const fetchedTickets = await getTickets();
         dispatch(getTicketsSuccess(fetchedTickets));
       } catch (error) {
-        dispatch(getTicketsFailure(error.message));
+        if (error instanceof Error) {
+          dispatch(getTicketsFailure(error.message));
+        }
       }
     };
 
