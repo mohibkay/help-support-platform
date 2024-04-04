@@ -9,10 +9,12 @@ import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
 import { TicketType } from "@/types/Ticket";
 import Ticket from "./ticket";
+import { Icons } from "./icons";
+import { Button } from "./ui/button";
+import CreateTicket from "./create-ticket";
 
 const TicketsList: React.FC = () => {
-  const [state, setState] = useState(false);
-  console.log("🐬 ~ state:", state);
+  const [showCreateTicket, setShowCreateTicket] = useState(false);
   const dispatch = useDispatch();
   const { tickets, isLoading, error } = useSelector(
     (state: RootState) => state.tickets
@@ -30,7 +32,7 @@ const TicketsList: React.FC = () => {
     };
 
     fetchTickets();
-  }, [dispatch, state]);
+  }, [dispatch]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -42,7 +44,12 @@ const TicketsList: React.FC = () => {
 
   return (
     <div>
-      <h2 onClick={() => setState((state) => !state)}>Tickets List</h2>
+      <div className='flex justify-between space-x-4 items-center mb-2'>
+        <h2>Tickets List</h2>
+        <Button variant='outline' onClick={() => setShowCreateTicket(true)}>
+          <Icons.Plus />
+        </Button>
+      </div>
       <ul className='space-y-4'>
         {tickets.map(
           ({
@@ -68,6 +75,8 @@ const TicketsList: React.FC = () => {
           )
         )}
       </ul>
+
+      {showCreateTicket && <CreateTicket />}
     </div>
   );
 };
