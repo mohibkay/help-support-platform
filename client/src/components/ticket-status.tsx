@@ -46,7 +46,9 @@ const TicketStatus = ({
         </SelectTrigger>
         <SelectContent>
           {Object.values(TICKET_STATUS).map((status) => (
-            <SelectItem value={status}>{status}</SelectItem>
+            <SelectItem key={status} value={status}>
+              {status}
+            </SelectItem>
           ))}
         </SelectContent>
       </Select>
