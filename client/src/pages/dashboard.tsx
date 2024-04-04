@@ -6,6 +6,8 @@ import { logout } from "../redux/authSlice";
 import { ROUTES } from "@/lib/routes";
 
 import { Button } from "@/components/ui/button";
+import TicketList from "@/components/ticket-list";
+import ArticleList from "@/components/article-list";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -22,7 +24,10 @@ const Dashboard = () => {
         <Link to={ROUTES.DASHBOARD}>HelpDesk</Link>
         <Button onClick={handleLogout}>Logout</Button>
       </nav>
-      <div>Dashboard</div>
+      <div className='flex justify-between items-center mt-6'>
+        <TicketList />
+        <ArticleList />
+      </div>
     </>
   );
 };

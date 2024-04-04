@@ -1,26 +1,29 @@
-import { useGetToken } from "@/hooks/useGetToken";
+import { BASE_URL } from "@/lib/routes";
+import { store } from "../redux/store";
+
 import axios from "axios";
 
-const baseURL = "http://localhost:3000/api";
-
-const axiosPrivate = axios.create({
-  baseURL,
+const axiosClient = axios.create({
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });
 
-axiosPrivate.interceptors.request.use(
+axiosClient.interceptors.request.use(
   (config) => {
-    const token = useGetToken();
-
+    const state = store.getState();
+    const token = state.auth.token;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
-export default axiosPrivate;
+export default axiosClient;

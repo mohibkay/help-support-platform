@@ -1,10 +1,9 @@
-// import axiosPrivate from "@/api/axios";
 import axios from "axios";
 import { userList } from "@/lib/users";
 import { UserType } from "@/types/User";
+import { BASE_URL } from "@/lib/routes";
 
-const baseURL = "http://localhost:3000/api";
-const loginUrl = `${baseURL}/users/login`;
+const loginUrl = `${BASE_URL}/users/login`;
 
 export const loginApi = async (userType: UserType) => {
   console.log("🐬 ~ loginApi ~ userType:", userType);

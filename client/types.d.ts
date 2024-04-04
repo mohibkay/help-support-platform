@@ -1,1 +1,0 @@
-type UserType = "Advertiser" | "Support";
