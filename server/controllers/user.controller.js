@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import { users } from "../mock/users.js";
-const JWT_SECRET =
-  "e64094b63547cc51fe35246969f716261623ddde40dbc651ffe4b42da9ee898c04169c56dc313e3deabe7a43a31ae49484e030e15ea01bcab1e08d700fbd63eb";
+import { JWT_SECRET } from "../config.js";
 
 const login = (req, res) => {
   const { username, password } = req.body;
