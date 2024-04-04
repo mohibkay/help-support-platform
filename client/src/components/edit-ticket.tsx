@@ -59,7 +59,7 @@ const EditTicket = ({ ticket }: { ticket: TicketType }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='ghost' onClick={() => setOpen(true)}>
+        <Button variant='ghost' size='icon' onClick={() => setOpen(true)}>
           <Icons.Pencil />
         </Button>
       </DialogTrigger>

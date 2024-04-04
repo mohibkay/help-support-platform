@@ -38,7 +38,7 @@ const DeleteTicket = ({ ticketId }: { ticketId: number }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button variant='ghost' onClick={() => setOpen(true)}>
+        <Button variant='ghost' size='icon' onClick={() => setOpen(true)}>
           <Icons.Delete />
         </Button>
       </DialogTrigger>

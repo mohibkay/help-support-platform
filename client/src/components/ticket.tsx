@@ -18,10 +18,10 @@ const Ticket = ({
   title,
   description,
   createdAt,
+  updatedAt,
   createdBy,
   status,
 }: TicketType) => {
-  const readableDate = formatDate(new Date(createdAt));
   const ticket = {
     id,
     title,
@@ -29,15 +29,17 @@ const Ticket = ({
     createdAt,
     createdBy,
     status,
-    updatedAt: "",
+    updatedAt,
   };
+  const readableCreatedAt = formatDate(new Date(createdAt));
+  const readableUpdatedAt = formatDate(new Date(updatedAt));
 
   return (
     <Card>
       <CardHeader className='flex flex-row items-baseline justify-between'>
         <CardTitle>{title}</CardTitle>
         <RoleGate allowedRoles={[USERS.Advertiser]}>
-          <div className='-space-x-4'>
+          <div className='-space-x-'>
             <EditTicket ticket={ticket} />
             <DeleteTicket ticketId={id} />
           </div>
@@ -47,7 +49,8 @@ const Ticket = ({
       <CardFooter className='flex flex-col'>
         <TicketStatus status={ticket.status} ticketId={id} />
         <p className='flex flex-col mt-4'>
-          <span>{readableDate}</span>
+          <span>Created: {readableCreatedAt}</span>
+          <span>Updated: {readableUpdatedAt}</span>
           <span>Created By: {createdBy}</span>
         </p>
       </CardFooter>
