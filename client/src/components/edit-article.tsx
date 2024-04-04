@@ -77,7 +77,7 @@ const EditArticle = ({ article }: { article: ArticleType }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className='mb-4'>
-          <DialogTitle>Edit Article-----</DialogTitle>
+          <DialogTitle>Edit Article</DialogTitle>
           <DialogDescription className='space-y-4 my-4'>
             <Form {...form}>
               <form
