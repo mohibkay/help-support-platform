@@ -5,9 +5,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { formatDate } from "@/lib/utils";
 import { TicketType } from "@/types/Ticket";
 
-const Ticket = ({ title, description }: TicketType) => {
+const Ticket = ({ title, description, createdAt, createdBy }: TicketType) => {
+  const readableDate = formatDate(new Date(createdAt));
+
   return (
     <Card>
       <CardHeader>
@@ -15,7 +18,10 @@ const Ticket = ({ title, description }: TicketType) => {
       </CardHeader>
       <CardContent>{description}</CardContent>
       <CardFooter>
-        <p>Card Footer</p>
+        <p className='flex flex-col'>
+          <span>{readableDate}</span>
+          <span>Created By: {createdBy}</span>
+        </p>
       </CardFooter>
     </Card>
   );

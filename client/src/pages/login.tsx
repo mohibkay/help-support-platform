@@ -19,7 +19,8 @@ const Login = () => {
     try {
       const res = await loginApi(userType);
       console.log("🐬 ~ handleLogin ~ res:", res);
-      dispatch(login({ userType, token: res.token }));
+      const userData = { username: res.username, type: userType };
+      dispatch(login({ userType, token: res.token, userData }));
       navigate(ROUTES.DASHBOARD);
     } catch (error) {
       console.error(error);

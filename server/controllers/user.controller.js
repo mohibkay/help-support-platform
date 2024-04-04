@@ -18,7 +18,7 @@ const login = (req, res) => {
     { userId: id, username: foundUsername, type },
     JWT_SECRET
   );
-  res.json({ message: "Login successful", token });
+  res.json({ message: "Login successful", token, username, type });
 };
 
 export { login };

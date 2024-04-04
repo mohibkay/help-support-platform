@@ -25,7 +25,6 @@ const TicketsList: React.FC = () => {
         const fetchedTickets = await getTickets();
         dispatch(getTicketsSuccess(fetchedTickets));
       } catch (error) {
-        console.log("🐬 ~ fetchTickets ~ error:", error);
         dispatch(getTicketsFailure(error.message));
       }
     };
@@ -38,13 +37,13 @@ const TicketsList: React.FC = () => {
   }
 
   if (error) {
-    // return <div>Error: {error}</div>;
+    return <div>Error: {error}</div>;
   }
 
   return (
     <div>
       <h2 onClick={() => setState((state) => !state)}>Tickets List</h2>
-      <ul>
+      <ul className='space-y-4'>
         {tickets.map(
           ({
             id,
