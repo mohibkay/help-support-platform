@@ -66,9 +66,9 @@ const updateTicket = async (req, res) => {
     };
   } else if (userType === "Advertiser" && (title || description)) {
     if (status)
-      return res
-        .status(403)
-        .json({ error: "Advertisers are not allowed to update ticket status" });
+      return res.status(403).json({
+        error: `${userType} user is not allowed to update ticket status`,
+      });
 
     tickets[ticketIndex] = {
       ...tickets[ticketIndex],
@@ -77,9 +77,9 @@ const updateTicket = async (req, res) => {
       updatedAt: new Date(),
     };
   } else {
-    return res
-      .status(403)
-      .json({ error: "Invalid operation for your user type" });
+    return res.status(403).json({
+      error: `${userType} user is not allowed to update ticket`,
+    });
   }
 
   res.json(tickets[ticketIndex]);
