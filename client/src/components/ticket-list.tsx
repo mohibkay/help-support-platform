@@ -9,12 +9,9 @@ import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
 import { TicketType } from "@/types/Ticket";
 import Ticket from "./ticket";
-import { Icons } from "./icons";
-import { Button } from "./ui/button";
 import CreateTicket from "./create-ticket";
 
 const TicketsList: React.FC = () => {
-  const [showCreateTicket, setShowCreateTicket] = useState(false);
   const dispatch = useDispatch();
   const { tickets, isLoading, error } = useSelector(
     (state: RootState) => state.tickets
@@ -46,9 +43,7 @@ const TicketsList: React.FC = () => {
     <div>
       <div className='flex justify-between space-x-4 items-center mb-2'>
         <h2>Tickets List</h2>
-        <Button variant='outline' onClick={() => setShowCreateTicket(true)}>
-          <Icons.Plus />
-        </Button>
+        <CreateTicket />
       </div>
       <ul className='space-y-4'>
         {tickets.map(
@@ -76,7 +71,7 @@ const TicketsList: React.FC = () => {
         )}
       </ul>
 
-      {showCreateTicket && <CreateTicket />}
+      {/* <CreateTicket open={showCreateTicket} /> */}
     </div>
   );
 };
