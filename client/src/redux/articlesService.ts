@@ -1,6 +1,5 @@
 import { ArticleCategoryType, ArticleType } from "../types/Article";
 import axiosClient from "../api/axios";
-import { ARTICLE_CATEGORIES } from "@/lib/article";
 
 export const getArticles = async (): Promise<ArticleType[]> => {
   try {
@@ -30,8 +29,9 @@ export const createArticle = async (
 
 export const updateArticle = async (
   articleId: number,
-  title?: string | undefined,
-  description?: string | undefined
+  title: string,
+  description: string,
+  category: ArticleCategoryType
 ): Promise<ArticleType> => {
   try {
     const response = await axiosClient.put<ArticleType>(
@@ -39,6 +39,7 @@ export const updateArticle = async (
       {
         title,
         description,
+        category,
       }
     );
     return response.data;

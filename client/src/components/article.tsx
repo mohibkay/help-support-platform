@@ -10,8 +10,10 @@ import { ArticleType } from "@/types/Article";
 import RoleGate from "./auth/role-gate";
 import { USERS } from "@/lib/users";
 import ArticleCategory from "./article-category";
+import EditArticle from "./edit-article";
 
 const Article = ({
+  id,
   title,
   description,
   createdAt,
@@ -20,10 +22,26 @@ const Article = ({
 }: ArticleType) => {
   const readableDate = formatDate(new Date(createdAt));
 
+  const article = {
+    id,
+    title,
+    description,
+    createdAt,
+    createdBy,
+    category,
+    updatedAt: "",
+  };
+
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className='flex flex-row items-baseline justify-between'>
         <CardTitle>{title}</CardTitle>
+        <RoleGate allowedRoles={[USERS.Support]}>
+          <div className='-space-x-4'>
+            <EditArticle article={article} />
+            {/* <DeleteArticle articleId={id} /> */}
+          </div>
+        </RoleGate>
       </CardHeader>
       <CardContent>{description}</CardContent>
       <CardFooter className='flex flex-col'>
