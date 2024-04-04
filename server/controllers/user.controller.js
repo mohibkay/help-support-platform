@@ -12,7 +12,12 @@ const login = (req, res) => {
     return res.status(401).json({ error: "Invalid username or password" });
   }
 
-  const token = jwt.sign({ userId: user.id }, JWT_SECRET);
+  const { id, username: foundUsername, type } = user;
+
+  const token = jwt.sign(
+    { userId: id, username: foundUsername, type },
+    JWT_SECRET
+  );
   res.json({ message: "Login successful", token });
 };
 

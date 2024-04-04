@@ -1,6 +1,7 @@
 const checkUserType = (allowedTypes) => {
   return function (req, res, next) {
     const userType = req.user.type;
+    console.log("🐬 ~ userType:", userType);
     if (allowedTypes.includes(userType)) {
       next();
     } else {
