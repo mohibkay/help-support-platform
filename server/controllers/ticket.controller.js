@@ -1,5 +1,9 @@
 import { tickets } from "../mock/tickets.js";
 
+const getTickets = (req, res) => {
+  return res.json(tickets);
+};
+
 const createTicket = async (req, res) => {
   const { title, description } = req.body;
 
@@ -49,12 +53,11 @@ const updateTicket = async (req, res) => {
     return res.status(404).json({ error: "Ticket not found" });
   }
 
-  // Check if the user is a Support user trying to update status
   if (userType === "Support" && status) {
     if (!["OPEN", "IN_PROGRESS", "CLOSED"].includes(status)) {
       return res.status(400).json({ error: "Invalid status" });
     }
-    // Update status for Support users
+
     tickets[ticketIndex] = {
       ...tickets[ticketIndex],
       status,
@@ -81,4 +84,17 @@ const updateTicket = async (req, res) => {
   res.json(tickets[ticketIndex]);
 };
 
-export { updateTicket };
+const deleteTicket = (req, res) => {
+  const ticketId = parseInt(req.params.id);
+
+  const ticketIndex = tickets.findIndex((ticket) => ticket.id === ticketId);
+
+  if (ticketIndex === -1) {
+    return res.status(404).json({ error: "Ticket not found" });
+  }
+
+  tickets.splice(ticketIndex, 1);
+  res.json({ message: "Ticket deleted successfully" });
+};
+
+export { getTickets, createTicket, updateTicket, deleteTicket };

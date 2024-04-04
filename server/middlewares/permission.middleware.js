@@ -5,9 +5,9 @@ const checkUserType = (allowedTypes) => {
     if (allowedTypes.includes(userType)) {
       next();
     } else {
-      res
-        .status(403)
-        .json({ error: "You do not have permission to perform this action." });
+      res.status(403).json({
+        error: `${userType} does not have permission to perform this action. Only ${allowedTypes} user is allowed.`,
+      });
     }
   };
 };
