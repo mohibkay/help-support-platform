@@ -45,7 +45,7 @@ const Ticket = ({
       <CardContent>{description}</CardContent>
       <CardFooter className='flex flex-col'>
         <TicketStatus status={ticket.status} />
-        <p className='flex flex-col'>
+        <p className='flex flex-col mt-4'>
           <span>{readableDate}</span>
           <span>Created By: {createdBy}</span>
         </p>

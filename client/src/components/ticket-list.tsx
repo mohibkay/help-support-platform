@@ -10,6 +10,8 @@ import { useEffect } from "react";
 import { TicketType } from "@/types/Ticket";
 import Ticket from "./ticket";
 import CreateTicket from "./create-ticket";
+import RoleGate from "./auth/role-gate";
+import { USERS } from "@/lib/users";
 
 const TicketsList: React.FC = () => {
   const dispatch = useDispatch();
@@ -43,7 +45,9 @@ const TicketsList: React.FC = () => {
     <div>
       <div className='flex justify-between space-x-4 items-center mb-2'>
         <h2>Tickets List</h2>
-        <CreateTicket />
+        <RoleGate allowedRoles={[USERS.Advertiser]}>
+          <CreateTicket />
+        </RoleGate>
       </div>
       <ul className='space-y-4'>
         {tickets.map(
