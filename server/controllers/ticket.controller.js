@@ -6,6 +6,7 @@ const getTickets = (req, res) => {
 
 const createTicket = async (req, res) => {
   const { title, description } = req.body;
+  const currentUser = req.user.username;
 
   if (!title || title.length > 30 || !/^[a-zA-Z0-9 ]+$/.test(title)) {
     return res.status(400).json({ error: "Invalid title" });
@@ -25,7 +26,7 @@ const createTicket = async (req, res) => {
     status: "OPEN",
     createdAt: new Date(),
     updatedAt: new Date(),
-    createdBy: req.user.id,
+    createdBy: currentUser,
   };
 
   tickets.push(newTicket);
