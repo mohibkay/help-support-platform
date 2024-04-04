@@ -6,7 +6,7 @@ const tickets = [
     status: "OPEN",
     createdAt: new Date("2024-04-04T15:12:42"),
     updatedAt: new Date("2024-04-04T20:32:17"),
-    createdBy: "advertiser1",
+    createdBy: "advertiser3",
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const tickets = [
     status: "IN_PROGRESS",
     createdAt: new Date("2024-04-04T18:45:23"),
     updatedAt: new Date("2024-04-04T19:01:09"),
-    createdBy: "advertiser1",
+    createdBy: "advertiser2",
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ const tickets = [
     status: "CLOSED",
     createdAt: new Date("2024-04-04T16:19:37"),
     updatedAt: new Date("2024-04-04T21:27:51"),
-    createdBy: "advertiser1",
+    createdBy: "advertiser4",
   },
 ];
 
