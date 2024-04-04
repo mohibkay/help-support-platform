@@ -11,6 +11,7 @@ import EditTicket from "./edit-ticket";
 import DeleteTicket from "./delete-ticket";
 import RoleGate from "./auth/role-gate";
 import { USERS } from "@/lib/users";
+import TicketStatus from "./ticket-status";
 
 const Ticket = ({
   id,
@@ -18,9 +19,17 @@ const Ticket = ({
   description,
   createdAt,
   createdBy,
+  status,
 }: TicketType) => {
   const readableDate = formatDate(new Date(createdAt));
-  const ticket = { id, title, description, createdAt, createdBy };
+  const ticket = {
+    id,
+    title,
+    description,
+    createdAt,
+    createdBy,
+    status,
+  };
 
   return (
     <Card>
@@ -34,7 +43,8 @@ const Ticket = ({
         </RoleGate>
       </CardHeader>
       <CardContent>{description}</CardContent>
-      <CardFooter>
+      <CardFooter className='flex flex-col'>
+        <TicketStatus status={ticket.status} />
         <p className='flex flex-col'>
           <span>{readableDate}</span>
           <span>Created By: {createdBy}</span>
