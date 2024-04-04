@@ -29,6 +29,7 @@ const Ticket = ({
     createdAt,
     createdBy,
     status,
+    updatedAt: "",
   };
 
   return (
