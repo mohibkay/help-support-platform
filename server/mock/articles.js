@@ -6,7 +6,7 @@ const articles = [
     category: "Campaign",
     createdAt: new Date(),
     updatedAt: new Date(),
-    createdBy: "support1",
+    createdBy: "support",
     category: "Campaign",
   },
   {
@@ -16,7 +16,7 @@ const articles = [
     category: "Reporting",
     createdAt: new Date(),
     updatedAt: new Date(),
-    createdBy: "support2",
+    createdBy: "support",
     category: "Reporting",
   },
 ];

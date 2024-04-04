@@ -1,6 +1,15 @@
 import { articles } from "../mock/articles.js";
 
 const getArticles = async (req, res) => {
+  const hasAccessToCreatedBy = req.user.type === "Support";
+
+  if (!hasAccessToCreatedBy) {
+    const filteredArticles = articles.map((article) => {
+      const { createdBy, ...rest } = article;
+      return rest;
+    });
+    return res.json(filteredArticles);
+  }
   res.json(articles);
 };
 
