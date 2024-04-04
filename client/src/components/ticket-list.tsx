@@ -70,8 +70,6 @@ const TicketsList: React.FC = () => {
           )
         )}
       </ul>
-
-      {/* <CreateTicket open={showCreateTicket} /> */}
     </div>
   );
 };

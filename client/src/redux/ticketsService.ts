@@ -40,3 +40,11 @@ export const updateTicket = async (
     throw new Error("Failed to update ticket");
   }
 };
+
+export const deleteTicket = async (ticketId: number): Promise<void> => {
+  try {
+    await axiosClient.delete(`/tickets/${ticketId}`);
+  } catch (error) {
+    throw new Error("Failed to delete ticket");
+  }
+};

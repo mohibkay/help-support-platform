@@ -59,6 +59,20 @@ const ticketsSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    deleteTicketStart(state) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    deleteTicketSuccess(state, action: PayloadAction<number>) {
+      state.isLoading = false;
+      state.tickets = state.tickets.filter(
+        (ticket) => ticket.id !== action.payload
+      );
+    },
+    deleteTicketFailure(state, action: PayloadAction<string>) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -72,6 +86,9 @@ export const {
   updateTicketStart,
   updateTicketSuccess,
   updateTicketFailure,
+  deleteTicketStart,
+  deleteTicketSuccess,
+  deleteTicketFailure,
 } = ticketsSlice.actions;
 
 export default ticketsSlice.reducer;

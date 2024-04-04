@@ -8,6 +8,7 @@ import {
 import { formatDate } from "@/lib/utils";
 import { TicketType } from "@/types/Ticket";
 import EditTicket from "./edit-ticket";
+import DeleteTicket from "./delete-ticket";
 
 const Ticket = ({
   id,
@@ -23,7 +24,10 @@ const Ticket = ({
     <Card>
       <CardHeader className='flex flex-row items-baseline justify-between'>
         <CardTitle>{title}</CardTitle>
-        <EditTicket ticket={ticket} />
+        <div className='-space-x-4'>
+          <EditTicket ticket={ticket} />
+          <DeleteTicket ticketId={id} />
+        </div>
       </CardHeader>
       <CardContent>{description}</CardContent>
       <CardFooter>
