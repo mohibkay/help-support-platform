@@ -39,7 +39,7 @@ const Ticket = ({
       <CardHeader className='flex flex-row items-baseline justify-between'>
         <CardTitle>{title}</CardTitle>
         <RoleGate allowedRoles={[USERS.Advertiser]}>
-          <div className='-space-x-'>
+          <div>
             <EditTicket ticket={ticket} />
             <DeleteTicket ticketId={id} />
           </div>

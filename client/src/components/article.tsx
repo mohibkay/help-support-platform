@@ -18,11 +18,10 @@ const Article = ({
   title,
   description,
   createdAt,
+  updatedAt,
   createdBy,
   category,
 }: ArticleType) => {
-  const readableDate = formatDate(new Date(createdAt));
-
   const article = {
     id,
     title,
@@ -30,8 +29,11 @@ const Article = ({
     createdAt,
     createdBy,
     category,
-    updatedAt: "",
+    updatedAt,
   };
+
+  const readableCreatedAt = formatDate(new Date(createdAt));
+  const readableUpdatedAt = formatDate(new Date(updatedAt));
 
   return (
     <Card>
@@ -48,7 +50,8 @@ const Article = ({
       <CardFooter className='flex flex-col'>
         <ArticleCategory category={category} />
         <p className='flex flex-col'>
-          <span>{readableDate}</span>
+          <span>Created: {readableCreatedAt}</span>
+          <span>Updated: {readableUpdatedAt}</span>
           <RoleGate allowedRoles={[USERS.Support]}>
             <span>Created By: {createdBy}</span>
           </RoleGate>
