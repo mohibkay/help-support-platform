@@ -1,23 +1,32 @@
 const articles = [
   {
     id: 1,
-    title: "Article 1",
-    description: "Description 1",
+    title: "Understanding Campaign Analytics",
+    description:
+      "A comprehensive guide to interpreting campaign data and metrics",
     category: "Campaign",
     createdAt: new Date(),
     updatedAt: new Date(),
     createdBy: "support1",
-    category: "Campaign",
   },
   {
     id: 2,
-    title: "Article 2",
-    description: "Description 2",
+    title: "Reporting Best Practices",
+    description:
+      "Strategies for effective reporting to enhance decision-making",
     category: "Reporting",
     createdAt: new Date(),
     updatedAt: new Date(),
     createdBy: "support1",
-    category: "Reporting",
+  },
+  {
+    id: 3,
+    title: "Optimizing Ad Performance",
+    description: "Techniques for improving ad relevance and engagement",
+    category: "Campaign",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    createdBy: "support1",
   },
 ];
 
