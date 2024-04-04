@@ -16,10 +16,12 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ticketSchema } from "@/schema/ticket";
+import { useDispatch } from "react-redux";
+import { createTicketSuccess } from "../redux/ticketsSlice";
+import { createTicket } from "../redux/ticketsService";
 
 type FormData = {
   title: string;
@@ -30,9 +32,16 @@ const CreateTicket = () => {
   const form = useForm<FormData>({
     resolver: zodResolver(ticketSchema),
   });
+  const dispatch = useDispatch();
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const onSubmit = async (data: FormData) => {
+    try {
+      const newTicket = await createTicket(data.title, data.description);
+      dispatch(createTicketSuccess(newTicket));
+      form.reset();
+    } catch (error) {
+      console.error("Failed to create ticket:", error);
+    }
   };
 
   return (

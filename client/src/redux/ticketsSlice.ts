@@ -29,9 +29,28 @@ const ticketsSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    createTicketStart(state) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    createTicketSuccess(state, action: PayloadAction<TicketType>) {
+      state.isLoading = false;
+      state.tickets.push(action.payload);
+    },
+    createTicketFailure(state, action: PayloadAction<string>) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 
-export const { getTicketsStart, getTicketsSuccess, getTicketsFailure } =
-  ticketsSlice.actions;
+export const {
+  getTicketsStart,
+  getTicketsSuccess,
+  getTicketsFailure,
+  createTicketStart,
+  createTicketSuccess,
+  createTicketFailure,
+} = ticketsSlice.actions;
+
 export default ticketsSlice.reducer;

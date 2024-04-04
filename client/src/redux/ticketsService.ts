@@ -9,3 +9,18 @@ export const getTickets = async (): Promise<TicketType[]> => {
     throw new Error("Failed to fetch tickets");
   }
 };
+
+export const createTicket = async (
+  title: string,
+  description: string
+): Promise<TicketType> => {
+  try {
+    const response = await axiosClient.post<TicketType>("/tickets", {
+      title,
+      description,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to create ticket");
+  }
+};
