@@ -6,6 +6,7 @@ const getArticles = async (req, res) => {
 
 const createArticle = async (req, res) => {
   const { title, description, category } = req.body;
+  const currentUser = req.user.username;
 
   if (!title || title.length > 20 || !/^[a-zA-Z0-9 ]+$/.test(title)) {
     return res.status(400).json({ error: "Invalid title" });
@@ -23,8 +24,6 @@ const createArticle = async (req, res) => {
     return res.status(400).json({ error: "Invalid category" });
   }
 
-  // TODO: Verify if the user is a Support User
-
   const newArticle = {
     id: articles.length + 1,
     title,
@@ -32,7 +31,7 @@ const createArticle = async (req, res) => {
     category,
     createdAt: new Date(),
     updatedAt: new Date(),
-    createdBy: "support1", // Replace with the logged-in Support User's username
+    createdBy: currentUser,
   };
 
   articles.push(newArticle);
@@ -58,8 +57,6 @@ const updateArticle = async (req, res) => {
   if (!category || !["Campaign", "Reporting"].includes(category)) {
     return res.status(400).json({ error: "Invalid category" });
   }
-
-  // TODO: Verify if the user is a Support User
 
   const articleIndex = articles.findIndex(
     (article) => article.id === articleId
