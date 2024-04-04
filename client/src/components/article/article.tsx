@@ -49,7 +49,7 @@ const Article = ({
       <CardContent>{description}</CardContent>
       <CardFooter className='flex flex-col'>
         <ArticleCategory category={category} />
-        <p className='flex flex-col'>
+        <p className='flex flex-col mt-4'>
           <span>Created: {readableCreatedAt}</span>
           <span>Updated: {readableUpdatedAt}</span>
           <RoleGate allowedRoles={[USERS.Support]}>
