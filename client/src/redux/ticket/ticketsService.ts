@@ -1,5 +1,5 @@
-import { TicketStatus, TicketType } from "../types/Ticket";
-import axiosClient from "../api/axios";
+import { TicketStatus, TicketType } from "../../types/Ticket";
+import axiosClient from "../../api/axios";
 
 export const getTickets = async (): Promise<TicketType[]> => {
   try {

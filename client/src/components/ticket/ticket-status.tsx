@@ -12,8 +12,8 @@ import { USERS } from "@/lib/users";
 import { TicketStatus as Status } from "@/types/Ticket";
 import { TICKET_STATUS } from "@/lib/ticket";
 import { useDispatch } from "react-redux";
-import { updateTicket } from "@/redux/ticketsService";
-import { updateTicketSuccess } from "@/redux/ticketsSlice";
+import { updateTicket } from "@/redux/ticket/ticketsService";
+import { updateTicketSuccess } from "@/redux/ticket/ticketsSlice";
 
 const TicketStatus = ({
   status,

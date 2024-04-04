@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getTickets } from "../redux/ticketsService";
+import { getTickets } from "../../redux/ticket/ticketsService";
 import {
   getTicketsStart,
   getTicketsSuccess,
   getTicketsFailure,
-} from "../redux/ticketsSlice";
-import { RootState } from "../redux/store";
+} from "../../redux/ticket/ticketsSlice";
+import { RootState } from "../../redux/store";
 import { useEffect } from "react";
 import { TicketType } from "@/types/Ticket";
 import Ticket from "./ticket";
 import CreateTicket from "./create-ticket";
-import RoleGate from "./auth/role-gate";
+import RoleGate from "../auth/role-gate";
 import { USERS } from "@/lib/users";
 
 const TicketsList: React.FC = () => {

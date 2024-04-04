@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getArticles } from "../redux/articlesService";
+import { getArticles } from "../../redux/article/articlesService";
 import {
   getArticlesStart,
   getArticlesSuccess,
   getArticlesFailure,
-} from "../redux/articlesSlice";
-import { RootState } from "../redux/store";
+} from "../../redux/article/articlesSlice";
+import { RootState } from "../../redux/store";
 import { useEffect } from "react";
 import { ArticleType } from "@/types/Article";
 import Article from "./article";
 import CreateArticle from "./create-article";
-import RoleGate from "./auth/role-gate";
+import RoleGate from "../auth/role-gate";
 import { USERS } from "@/lib/users";
 
 const ArticlesList: React.FC = () => {

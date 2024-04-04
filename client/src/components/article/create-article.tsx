@@ -13,9 +13,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Icons } from "./icons";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Icons } from "../icons";
 import {
   Form,
   FormControl,
@@ -27,11 +27,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { articleSchema } from "@/schema/article";
 import { useDispatch } from "react-redux";
-import { updateArticleSuccess } from "../redux/articlesSlice";
-import { updateArticle } from "../redux/articlesService";
+import { createArticleSuccess } from "../../redux/article/articlesSlice";
+import { createArticle } from "../../redux/article/articlesService";
 import { useState } from "react";
-import { ArticleCategoryType, ArticleType } from "@/types/Article";
 import { ARTICLE_CATEGORIES } from "@/lib/article";
+import { ArticleCategoryType } from "@/types/Article";
 
 type FormData = {
   title: string;
@@ -39,45 +39,44 @@ type FormData = {
   category: ArticleCategoryType;
 };
 
-const EditArticle = ({ article }: { article: ArticleType }) => {
+const CreateArticle = () => {
   const [open, setOpen] = useState(false);
+
   const form = useForm<FormData>({
     resolver: zodResolver(articleSchema),
     defaultValues: {
-      title: article.title,
-      description: article.description,
-      category: article.category,
+      title: "",
+      description: "",
+      category: "Campaign",
     },
   });
   const dispatch = useDispatch();
 
   const onSubmit = async (data: FormData) => {
-    console.log("🐬 ~ onSubmit ~ data:", data);
     try {
-      const updatedArticle = await updateArticle(
-        article.id,
+      const newArticle = await createArticle(
         data.title,
         data.description,
         data.category
       );
-      dispatch(updateArticleSuccess(updatedArticle));
+      dispatch(createArticleSuccess(newArticle));
       form.reset();
       setOpen(false);
     } catch (error) {
-      console.error("Failed to update article:", error);
+      console.error("Failed to create article:", error);
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='ghost' size='icon' onClick={() => setOpen(true)}>
-          <Icons.Pencil />
+        <Button variant='outline' size='icon'>
+          <Icons.Plus />
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className='mb-4'>
-          <DialogTitle>Edit Article</DialogTitle>
+          <DialogTitle>Create Article</DialogTitle>
           <DialogDescription className='space-y-4 my-4'>
             <Form {...form}>
               <form
@@ -90,7 +89,7 @@ const EditArticle = ({ article }: { article: ArticleType }) => {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder='Title' {...field} />
+                        <Input placeholder='Article' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -115,7 +114,7 @@ const EditArticle = ({ article }: { article: ArticleType }) => {
                     <FormItem>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={article.category}
+                        defaultValue='Campaign'
                       >
                         <SelectTrigger>
                           <SelectValue placeholder='Select a category' />
@@ -132,7 +131,7 @@ const EditArticle = ({ article }: { article: ArticleType }) => {
                   )}
                 />
                 <Button type='submit' className='w-full'>
-                  Update
+                  Submit
                 </Button>
               </form>
             </Form>
@@ -143,4 +142,4 @@ const EditArticle = ({ article }: { article: ArticleType }) => {
   );
 };
 
-export default EditArticle;
+export default CreateArticle;

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { login } from "../redux/authSlice";
-import { loginApi } from "../redux/authService";
+import { login } from "../redux/auth/authSlice";
+import { loginApi } from "../redux/auth/authService";
 import { UserType } from "@/types/User";
 import { USERS } from "@/lib/users";
 import { ROUTES } from "@/lib/routes";

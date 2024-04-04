@@ -7,15 +7,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Icons } from "./icons";
-import { Button } from "./ui/button";
+import { Icons } from "../icons";
+import { Button } from "../ui/button";
 import { useState } from "react";
 import {
   deleteArticleStart,
   deleteArticleSuccess,
   deleteArticleFailure,
-} from "../redux/articlesSlice";
-import { deleteArticle } from "../redux/articlesService";
+} from "../../redux/article/articlesSlice";
+import { deleteArticle } from "../../redux/article/articlesService";
 import { useDispatch } from "react-redux";
 
 const DeleteArticle = ({ articleId }: { articleId: number }) => {

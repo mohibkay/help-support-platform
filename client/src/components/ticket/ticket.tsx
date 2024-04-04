@@ -6,32 +6,31 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
-import { ArticleType } from "@/types/Article";
-import RoleGate from "./auth/role-gate";
+import { TicketType } from "@/types/Ticket";
+import EditTicket from "./edit-ticket";
+import DeleteTicket from "./delete-ticket";
+import RoleGate from "../auth/role-gate";
 import { USERS } from "@/lib/users";
-import ArticleCategory from "./article-category";
-import EditArticle from "./edit-article";
-import DeleteArticle from "./delete-article";
+import TicketStatus from "./ticket-status";
 
-const Article = ({
+const Ticket = ({
   id,
   title,
   description,
   createdAt,
   updatedAt,
   createdBy,
-  category,
-}: ArticleType) => {
-  const article = {
+  status,
+}: TicketType) => {
+  const ticket = {
     id,
     title,
     description,
     createdAt,
     createdBy,
-    category,
+    status,
     updatedAt,
   };
-
   const readableCreatedAt = formatDate(new Date(createdAt));
   const readableUpdatedAt = formatDate(new Date(updatedAt));
 
@@ -39,26 +38,24 @@ const Article = ({
     <Card>
       <CardHeader className='flex flex-row items-baseline justify-between'>
         <CardTitle>{title}</CardTitle>
-        <RoleGate allowedRoles={[USERS.Support]}>
+        <RoleGate allowedRoles={[USERS.Advertiser]}>
           <div>
-            <EditArticle article={article} />
-            <DeleteArticle articleId={id} />
+            <EditTicket ticket={ticket} />
+            <DeleteTicket ticketId={id} />
           </div>
         </RoleGate>
       </CardHeader>
       <CardContent>{description}</CardContent>
       <CardFooter className='flex flex-col'>
-        <ArticleCategory category={category} />
-        <p className='flex flex-col'>
+        <TicketStatus status={ticket.status} ticketId={id} />
+        <p className='flex flex-col mt-4'>
           <span>Created: {readableCreatedAt}</span>
           <span>Updated: {readableUpdatedAt}</span>
-          <RoleGate allowedRoles={[USERS.Support]}>
-            <span>Created By: {createdBy}</span>
-          </RoleGate>
+          <span>Created By: {createdBy}</span>
         </p>
       </CardFooter>
     </Card>
   );
 };
 
-export default Article;
+export default Ticket;

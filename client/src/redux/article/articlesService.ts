@@ -1,5 +1,5 @@
-import { ArticleCategoryType, ArticleType } from "../types/Article";
-import axiosClient from "../api/axios";
+import { ArticleCategoryType, ArticleType } from "../../types/Article";
+import axiosClient from "../../api/axios";
 
 export const getArticles = async (): Promise<ArticleType[]> => {
   try {

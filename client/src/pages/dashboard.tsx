@@ -2,12 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { logout } from "../redux/authSlice";
+import { logout } from "../redux/auth/authSlice";
 import { ROUTES } from "@/lib/routes";
 
 import { Button } from "@/components/ui/button";
-import TicketList from "@/components/ticket-list";
-import ArticleList from "@/components/article-list";
+import TicketList from "@/components/ticket/ticket-list";
+import ArticleList from "@/components/article/article-list";
 import { RootState } from "@/redux/store";
 
 const Dashboard = () => {

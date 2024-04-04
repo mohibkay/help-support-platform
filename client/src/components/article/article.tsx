@@ -6,31 +6,32 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
-import { TicketType } from "@/types/Ticket";
-import EditTicket from "./edit-ticket";
-import DeleteTicket from "./delete-ticket";
-import RoleGate from "./auth/role-gate";
+import { ArticleType } from "@/types/Article";
+import RoleGate from "../auth/role-gate";
 import { USERS } from "@/lib/users";
-import TicketStatus from "./ticket-status";
+import ArticleCategory from "./article-category";
+import EditArticle from "./edit-article";
+import DeleteArticle from "./delete-article";
 
-const Ticket = ({
+const Article = ({
   id,
   title,
   description,
   createdAt,
   updatedAt,
   createdBy,
-  status,
-}: TicketType) => {
-  const ticket = {
+  category,
+}: ArticleType) => {
+  const article = {
     id,
     title,
     description,
     createdAt,
     createdBy,
-    status,
+    category,
     updatedAt,
   };
+
   const readableCreatedAt = formatDate(new Date(createdAt));
   const readableUpdatedAt = formatDate(new Date(updatedAt));
 
@@ -38,24 +39,26 @@ const Ticket = ({
     <Card>
       <CardHeader className='flex flex-row items-baseline justify-between'>
         <CardTitle>{title}</CardTitle>
-        <RoleGate allowedRoles={[USERS.Advertiser]}>
+        <RoleGate allowedRoles={[USERS.Support]}>
           <div>
-            <EditTicket ticket={ticket} />
-            <DeleteTicket ticketId={id} />
+            <EditArticle article={article} />
+            <DeleteArticle articleId={id} />
           </div>
         </RoleGate>
       </CardHeader>
       <CardContent>{description}</CardContent>
       <CardFooter className='flex flex-col'>
-        <TicketStatus status={ticket.status} ticketId={id} />
-        <p className='flex flex-col mt-4'>
+        <ArticleCategory category={category} />
+        <p className='flex flex-col'>
           <span>Created: {readableCreatedAt}</span>
           <span>Updated: {readableUpdatedAt}</span>
-          <span>Created By: {createdBy}</span>
+          <RoleGate allowedRoles={[USERS.Support]}>
+            <span>Created By: {createdBy}</span>
+          </RoleGate>
         </p>
       </CardFooter>
     </Card>
   );
 };
 
-export default Ticket;
+export default Article;

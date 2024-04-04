@@ -6,9 +6,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Icons } from "./icons";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Icons } from "../icons";
 import {
   Form,
   FormControl,
@@ -18,41 +25,46 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ticketSchema } from "@/schema/ticket";
+import { articleSchema } from "@/schema/article";
 import { useDispatch } from "react-redux";
-import { updateTicketSuccess } from "../redux/ticketsSlice";
-import { updateTicket } from "../redux/ticketsService";
+import { updateArticleSuccess } from "../../redux/article/articlesSlice";
+import { updateArticle } from "../../redux/article/articlesService";
 import { useState } from "react";
-import { TicketType } from "@/types/Ticket";
+import { ArticleCategoryType, ArticleType } from "@/types/Article";
+import { ARTICLE_CATEGORIES } from "@/lib/article";
 
 type FormData = {
   title: string;
   description: string;
+  category: ArticleCategoryType;
 };
 
-const EditTicket = ({ ticket }: { ticket: TicketType }) => {
+const EditArticle = ({ article }: { article: ArticleType }) => {
   const [open, setOpen] = useState(false);
   const form = useForm<FormData>({
-    resolver: zodResolver(ticketSchema),
+    resolver: zodResolver(articleSchema),
     defaultValues: {
-      title: ticket.title,
-      description: ticket.description,
+      title: article.title,
+      description: article.description,
+      category: article.category,
     },
   });
   const dispatch = useDispatch();
 
   const onSubmit = async (data: FormData) => {
+    console.log("🐬 ~ onSubmit ~ data:", data);
     try {
-      const updatedTicket = await updateTicket(
-        ticket.id,
+      const updatedArticle = await updateArticle(
+        article.id,
         data.title,
-        data.description
+        data.description,
+        data.category
       );
-      dispatch(updateTicketSuccess(updatedTicket));
+      dispatch(updateArticleSuccess(updatedArticle));
       form.reset();
       setOpen(false);
     } catch (error) {
-      console.error("Failed to update ticket:", error);
+      console.error("Failed to update article:", error);
     }
   };
 
@@ -65,7 +77,7 @@ const EditTicket = ({ ticket }: { ticket: TicketType }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className='mb-4'>
-          <DialogTitle>Edit Ticket</DialogTitle>
+          <DialogTitle>Edit Article</DialogTitle>
           <DialogDescription className='space-y-4 my-4'>
             <Form {...form}>
               <form
@@ -96,6 +108,29 @@ const EditTicket = ({ ticket }: { ticket: TicketType }) => {
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name='category'
+                  render={({ field }) => (
+                    <FormItem>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={article.category}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder='Select a category' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.values(ARTICLE_CATEGORIES).map((category) => (
+                            <SelectItem key={category} value={category}>
+                              {category}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormItem>
+                  )}
+                />
                 <Button type='submit' className='w-full'>
                   Update
                 </Button>
@@ -108,4 +143,4 @@ const EditTicket = ({ ticket }: { ticket: TicketType }) => {
   );
 };
 
-export default EditTicket;
+export default EditArticle;

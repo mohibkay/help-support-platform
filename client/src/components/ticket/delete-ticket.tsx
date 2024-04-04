@@ -7,15 +7,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Icons } from "./icons";
-import { Button } from "./ui/button";
+import { Icons } from "../icons";
+import { Button } from "../ui/button";
 import { useState } from "react";
 import {
   deleteTicketStart,
   deleteTicketSuccess,
   deleteTicketFailure,
-} from "../redux/ticketsSlice";
-import { deleteTicket } from "../redux/ticketsService";
+} from "../../redux/ticket/ticketsSlice";
+import { deleteTicket } from "../../redux/ticket/ticketsService";
 import { useDispatch } from "react-redux";
 
 const DeleteTicket = ({ ticketId }: { ticketId: number }) => {

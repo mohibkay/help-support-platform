@@ -6,9 +6,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Icons } from "./icons";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Icons } from "../icons";
 import {
   Form,
   FormControl,
@@ -20,44 +20,52 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ticketSchema } from "@/schema/ticket";
 import { useDispatch } from "react-redux";
-import { createTicketSuccess } from "../redux/ticketsSlice";
-import { createTicket } from "../redux/ticketsService";
+import { updateTicketSuccess } from "../../redux/ticket/ticketsSlice";
+import { updateTicket } from "../../redux/ticket/ticketsService";
 import { useState } from "react";
+import { TicketType } from "@/types/Ticket";
 
 type FormData = {
   title: string;
   description: string;
 };
 
-const CreateTicket = () => {
+const EditTicket = ({ ticket }: { ticket: TicketType }) => {
   const [open, setOpen] = useState(false);
-
   const form = useForm<FormData>({
     resolver: zodResolver(ticketSchema),
+    defaultValues: {
+      title: ticket.title,
+      description: ticket.description,
+    },
   });
   const dispatch = useDispatch();
 
   const onSubmit = async (data: FormData) => {
     try {
-      const newTicket = await createTicket(data.title, data.description);
-      dispatch(createTicketSuccess(newTicket));
+      const updatedTicket = await updateTicket(
+        ticket.id,
+        data.title,
+        data.description
+      );
+      dispatch(updateTicketSuccess(updatedTicket));
       form.reset();
       setOpen(false);
     } catch (error) {
-      console.error("Failed to create ticket:", error);
+      console.error("Failed to update ticket:", error);
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline' size='icon'>
-          <Icons.Plus />
+        <Button variant='ghost' size='icon' onClick={() => setOpen(true)}>
+          <Icons.Pencil />
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className='mb-4'>
-          <DialogTitle>Create Ticket</DialogTitle>
+          <DialogTitle>Edit Ticket</DialogTitle>
           <DialogDescription className='space-y-4 my-4'>
             <Form {...form}>
               <form
@@ -89,7 +97,7 @@ const CreateTicket = () => {
                   )}
                 />
                 <Button type='submit' className='w-full'>
-                  Submit
+                  Update
                 </Button>
               </form>
             </Form>
@@ -100,4 +108,4 @@ const CreateTicket = () => {
   );
 };
 
-export default CreateTicket;
+export default EditTicket;
