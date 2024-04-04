@@ -1,6 +1,6 @@
 const users = [
-  { id: 1, username: "advertiser", password: "password1", type: "Advertiser" },
-  { id: 3, username: "support", password: "password2", type: "Support" },
+  { id: 1, username: "advertiser1", password: "password1", type: "Advertiser" },
+  { id: 3, username: "support1", password: "password1", type: "Support" },
 ];
 
 export { users };
