@@ -6,6 +6,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Icons } from "./icons";
@@ -18,33 +25,45 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ticketSchema } from "@/schema/ticket";
+import { articleSchema } from "@/schema/article";
 import { useDispatch } from "react-redux";
-import { createTicketSuccess } from "../redux/ticketsSlice";
-import { createTicket } from "../redux/ticketsService";
+import { createArticleSuccess } from "../redux/articlesSlice";
+import { createArticle } from "../redux/articlesService";
 import { useState } from "react";
+import { ARTICLE_CATEGORIES } from "@/lib/article";
+import { ArticleCategoryType } from "@/types/Article";
 
 type FormData = {
   title: string;
   description: string;
+  category: ArticleCategoryType;
 };
 
-const CreateTicket = () => {
+const CreateArticle = () => {
   const [open, setOpen] = useState(false);
 
   const form = useForm<FormData>({
-    resolver: zodResolver(ticketSchema),
+    resolver: zodResolver(articleSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      category: "Campaign",
+    },
   });
   const dispatch = useDispatch();
 
   const onSubmit = async (data: FormData) => {
     try {
-      const newTicket = await createTicket(data.title, data.description);
-      dispatch(createTicketSuccess(newTicket));
+      const newArticle = await createArticle(
+        data.title,
+        data.description,
+        data.category
+      );
+      dispatch(createArticleSuccess(newArticle));
       form.reset();
       setOpen(false);
     } catch (error) {
-      console.error("Failed to create ticket:", error);
+      console.error("Failed to create article:", error);
     }
   };
 
@@ -57,7 +76,7 @@ const CreateTicket = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className='mb-4'>
-          <DialogTitle>Create Ticket</DialogTitle>
+          <DialogTitle>Create Article</DialogTitle>
           <DialogDescription className='space-y-4 my-4'>
             <Form {...form}>
               <form
@@ -70,7 +89,7 @@ const CreateTicket = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder='Title' {...field} />
+                        <Input placeholder='Article' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -88,6 +107,29 @@ const CreateTicket = () => {
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name='category'
+                  render={({ field }) => (
+                    <FormItem>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue='Campaign'
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder='Select a category' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.values(ARTICLE_CATEGORIES).map((category) => (
+                            <SelectItem key={category} value={category}>
+                              {category}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormItem>
+                  )}
+                />
                 <Button type='submit' className='w-full'>
                   Submit
                 </Button>
@@ -100,4 +142,4 @@ const CreateTicket = () => {
   );
 };
 
-export default CreateTicket;
+export default CreateArticle;

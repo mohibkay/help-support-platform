@@ -1,5 +1,6 @@
-import { ArticleType } from "../types/Article";
+import { ArticleCategoryType, ArticleType } from "../types/Article";
 import axiosClient from "../api/axios";
+import { ARTICLE_CATEGORIES } from "@/lib/article";
 
 export const getArticles = async (): Promise<ArticleType[]> => {
   try {
@@ -12,12 +13,14 @@ export const getArticles = async (): Promise<ArticleType[]> => {
 
 export const createArticle = async (
   title: string,
-  description: string
+  description: string,
+  category: ArticleCategoryType
 ): Promise<ArticleType> => {
   try {
     const response = await axiosClient.post<ArticleType>("/articles", {
       title,
       description,
+      category,
     });
     return response.data;
   } catch (error) {

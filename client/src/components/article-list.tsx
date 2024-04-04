@@ -45,9 +45,9 @@ const ArticlesList: React.FC = () => {
     <div className='flex-1'>
       <div className='flex justify-between space-x-4 items-center mb-2'>
         <h2>Articles List</h2>
-        {/* <RoleGate allowedRoles={[USERS.Support]}>
+        <RoleGate allowedRoles={[USERS.Support]}>
           <CreateArticle />
-        </RoleGate> */}
+        </RoleGate>
       </div>
       <ul className='space-y-4'>
         {articles?.map(
