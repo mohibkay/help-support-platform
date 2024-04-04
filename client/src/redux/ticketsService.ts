@@ -1,4 +1,4 @@
-import { TicketType } from "../types/Ticket";
+import { TicketStatus, TicketType } from "../types/Ticket";
 import axiosClient from "../api/axios";
 
 export const getTickets = async (): Promise<TicketType[]> => {
@@ -27,13 +27,15 @@ export const createTicket = async (
 
 export const updateTicket = async (
   ticketId: number,
-  title: string | undefined,
-  description: string | undefined
+  title?: string | undefined,
+  description?: string | undefined,
+  status?: TicketStatus | undefined
 ): Promise<TicketType> => {
   try {
     const response = await axiosClient.put<TicketType>(`/tickets/${ticketId}`, {
       title,
       description,
+      status,
     });
     return response.data;
   } catch (error) {

@@ -11,16 +11,36 @@ import { useCurrentRole } from "@/hooks/useCurrentRole";
 import { USERS } from "@/lib/users";
 import { TicketStatus as Status } from "@/types/Ticket";
 import { TICKET_STATUS } from "@/lib/ticket";
+import { useDispatch } from "react-redux";
+import { updateTicket } from "@/redux/ticketsService";
+import { updateTicketSuccess } from "@/redux/ticketsSlice";
 
-const TicketStatus = ({ status }: { status: Status }) => {
+const TicketStatus = ({
+  status,
+  ticketId,
+}: {
+  status: Status;
+  ticketId: number;
+}) => {
   const role = useCurrentRole();
+  const dispatch = useDispatch();
+
+  const updateTicketStatusHandler = async (newStatus: Status) => {
+    try {
+      await updateTicket(ticketId, undefined, undefined, newStatus);
+      dispatch(updateTicketSuccess(updateTicket));
+    } catch (error) {
+      console.error("Failed to update ticket:", error);
+    }
+  };
 
   if (role === USERS.Advertiser) {
     return <Badge>{status}</Badge>;
   }
+
   if (role === USERS.Support) {
     return (
-      <Select>
+      <Select onValueChange={updateTicketStatusHandler}>
         <SelectTrigger className='w-[180px]'>
           <SelectValue placeholder={status} />
         </SelectTrigger>
