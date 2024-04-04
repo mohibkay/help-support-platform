@@ -27,8 +27,13 @@ const TicketStatus = ({
 
   const updateTicketStatusHandler = async (newStatus: Status) => {
     try {
-      await updateTicket(ticketId, undefined, undefined, newStatus);
-      dispatch(updateTicketSuccess(updateTicket));
+      const updatedTicket = await updateTicket(
+        ticketId,
+        undefined,
+        undefined,
+        newStatus
+      );
+      dispatch(updateTicketSuccess(updatedTicket));
     } catch (error) {
       console.error("Failed to update ticket:", error);
     }
