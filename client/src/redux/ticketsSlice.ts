@@ -41,6 +41,24 @@ const ticketsSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    updateTicketStart(state) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    updateTicketSuccess(state, action: PayloadAction<TicketType>) {
+      state.isLoading = false;
+      const updatedTicket = action.payload;
+      const index = state.tickets.findIndex(
+        (ticket) => ticket.id === updatedTicket.id
+      );
+      if (index !== -1) {
+        state.tickets[index] = updatedTicket;
+      }
+    },
+    updateTicketFailure(state, action: PayloadAction<string>) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -51,6 +69,9 @@ export const {
   createTicketStart,
   createTicketSuccess,
   createTicketFailure,
+  updateTicketStart,
+  updateTicketSuccess,
+  updateTicketFailure,
 } = ticketsSlice.actions;
 
 export default ticketsSlice.reducer;

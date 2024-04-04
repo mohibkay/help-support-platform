@@ -7,14 +7,23 @@ import {
 } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
 import { TicketType } from "@/types/Ticket";
+import EditTicket from "./edit-ticket";
 
-const Ticket = ({ title, description, createdAt, createdBy }: TicketType) => {
+const Ticket = ({
+  id,
+  title,
+  description,
+  createdAt,
+  createdBy,
+}: TicketType) => {
   const readableDate = formatDate(new Date(createdAt));
+  const ticket = { id, title, description, createdAt, createdBy };
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className='flex flex-row items-baseline justify-between'>
         <CardTitle>{title}</CardTitle>
+        <EditTicket ticket={ticket} />
       </CardHeader>
       <CardContent>{description}</CardContent>
       <CardFooter>

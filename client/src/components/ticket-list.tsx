@@ -6,7 +6,7 @@ import {
   getTicketsFailure,
 } from "../redux/ticketsSlice";
 import { RootState } from "../redux/store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { TicketType } from "@/types/Ticket";
 import Ticket from "./ticket";
 import CreateTicket from "./create-ticket";

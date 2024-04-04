@@ -24,3 +24,19 @@ export const createTicket = async (
     throw new Error("Failed to create ticket");
   }
 };
+
+export const updateTicket = async (
+  ticketId: number,
+  title: string | undefined,
+  description: string | undefined
+): Promise<TicketType> => {
+  try {
+    const response = await axiosClient.put<TicketType>(`/tickets/${ticketId}`, {
+      title,
+      description,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to update ticket");
+  }
+};
