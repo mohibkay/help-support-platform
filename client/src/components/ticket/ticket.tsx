@@ -12,6 +12,7 @@ import DeleteTicket from "./delete-ticket";
 import RoleGate from "../auth/role-gate";
 import { USER_ROLES } from "@/lib/users";
 import TicketStatus from "./ticket-status";
+import TicketStatusSelector from "./ticket-status-selector";
 
 const Ticket = ({
   id,
@@ -47,7 +48,12 @@ const Ticket = ({
       </CardHeader>
       <CardContent>{description}</CardContent>
       <CardFooter className='flex flex-col'>
-        <TicketStatus status={ticket.status} ticketId={id} />
+        <RoleGate allowedRoles={[USER_ROLES.ADVERTISER]}>
+          <TicketStatus status={ticket.status} />
+        </RoleGate>
+        <RoleGate allowedRoles={[USER_ROLES.SUPPORT]}>
+          <TicketStatusSelector status={ticket.status} ticketId={id} />
+        </RoleGate>
         <p className='flex flex-col mt-4'>
           <span>Created: {readableCreatedAt}</span>
           <span>Updated: {readableUpdatedAt}</span>
