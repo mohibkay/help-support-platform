@@ -37,7 +37,7 @@ const DeleteArticle = ({ articleId }: { articleId: number }) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button variant='ghost' size='icon' onClick={() => setOpen(true)}>
           <Icons.Delete />
         </Button>
