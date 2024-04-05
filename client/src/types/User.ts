@@ -1,6 +1,8 @@
-export type UserType = "Advertiser" | "Support";
+import { USER_ROLES } from "@/lib/users";
+
+export type UserType = (typeof USER_ROLES)[keyof typeof USER_ROLES];
 
 export type User = {
   username: string;
-  type: UserType;
+  role: UserType;
 };

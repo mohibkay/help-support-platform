@@ -11,7 +11,7 @@ import { ArticleType } from "@/types/Article";
 import Article from "./article";
 import CreateArticle from "./create-article";
 import RoleGate from "../auth/role-gate";
-import { USERS } from "@/lib/users";
+import { USER_ROLES } from "@/lib/users";
 
 const ArticlesList: React.FC = () => {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const ArticlesList: React.FC = () => {
     <div className='flex-1'>
       <div className='flex justify-between space-x-4 items-center mb-4'>
         <h2 className='text-3xl'>Articles List</h2>
-        <RoleGate allowedRoles={[USERS.Support]}>
+        <RoleGate allowedRoles={[USER_ROLES.SUPPORT]}>
           <CreateArticle />
         </RoleGate>
       </div>

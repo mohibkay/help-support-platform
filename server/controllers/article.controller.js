@@ -1,7 +1,8 @@
 import { articles } from "../mock/articles.js";
+import { USER_ROLES } from "../config.js";
 
 const getArticles = async (req, res) => {
-  const hasAccessToCreatedBy = req.user.type === "Support";
+  const hasAccessToCreatedBy = req.user.role === USER_ROLES.SUPPORT;
 
   if (!hasAccessToCreatedBy) {
     const filteredArticles = articles.map((article) => {

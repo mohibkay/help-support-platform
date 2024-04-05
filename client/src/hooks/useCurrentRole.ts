@@ -4,7 +4,7 @@ import { UserType } from "@/types/User";
 
 const useCurrentRole = () => {
   const userData = useSelector((state: RootState) => state.auth);
-  return userData.userData?.type as UserType;
+  return userData.userData?.role as UserType;
 };
 
 export { useCurrentRole };

@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../redux/auth/authSlice";
 import { loginApi } from "../redux/auth/authService";
 import { UserType } from "@/types/User";
-import { USERS } from "@/lib/users";
+import { USER_ROLES } from "@/lib/users";
 import { ROUTES } from "@/lib/routes";
 import { Button } from "@/components/ui/button";
 
 const Login = () => {
-  const [userType, setUserType] = useState<UserType>(USERS.Advertiser);
+  const [userType, setUserType] = useState<UserType>(USER_ROLES.ADVERTISER);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,8 +18,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await loginApi(userType);
-      const userData = { username: res.username, type: userType };
-      dispatch(login({ userType, token: res.token, userData }));
+      const userData = { username: res.username, role: userType };
+      dispatch(login({ userRole: userType, token: res.token, userData }));
       navigate(ROUTES.DASHBOARD);
     } catch (error) {
       console.error(error);
@@ -37,8 +37,8 @@ const Login = () => {
               type='radio'
               value='advertiser'
               className='ml-2'
-              checked={userType === USERS.Advertiser}
-              onChange={() => setUserType(USERS.Advertiser)}
+              checked={userType === USER_ROLES.ADVERTISER}
+              onChange={() => setUserType(USER_ROLES.ADVERTISER)}
             />
           </label>
           <label>
@@ -47,8 +47,8 @@ const Login = () => {
               type='radio'
               value='support'
               className='ml-2'
-              checked={userType === USERS.Support}
-              onChange={() => setUserType(USERS.Support)}
+              checked={userType === USER_ROLES.SUPPORT}
+              onChange={() => setUserType(USER_ROLES.SUPPORT)}
             />
           </label>
         </div>

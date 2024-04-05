@@ -1,12 +1,12 @@
-const checkUserType = (allowedTypes) => {
+const checkUserType = (allowedRoles) => {
   return function (req, res, next) {
-    const userType = req.user.type;
-    console.log("🐬 ~ userType:", userType);
-    if (allowedTypes.includes(userType)) {
+    const userRole = req.user.role;
+
+    if (allowedRoles.includes(userRole)) {
       next();
     } else {
       res.status(403).json({
-        error: `${userType} does not have permission to perform this action. Only ${allowedTypes} user is allowed.`,
+        error: `${userRole} does not have permission to perform this action. Only ${allowedRoles} user is allowed.`,
       });
     }
   };

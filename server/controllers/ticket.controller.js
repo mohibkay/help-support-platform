@@ -1,3 +1,4 @@
+import { USER_ROLES } from "../config.js";
 import { tickets } from "../mock/tickets.js";
 
 const getTickets = (req, res) => {
@@ -36,7 +37,7 @@ const createTicket = async (req, res) => {
 const updateTicket = async (req, res) => {
   const ticketId = parseInt(req.params.id);
   const { title, description, status } = req.body;
-  const userType = req.user.type;
+  const userRole = req.user.role;
 
   if (title && (title.length > 30 || !/^[a-zA-Z0-9 ]+$/.test(title))) {
     return res.status(400).json({ error: "Invalid title" });
@@ -54,7 +55,7 @@ const updateTicket = async (req, res) => {
     return res.status(404).json({ error: "Ticket not found" });
   }
 
-  if (userType === "Support" && status) {
+  if (userRole === USER_ROLES.SUPPORT && status) {
     if (!["OPEN", "IN_PROGRESS", "CLOSED"].includes(status)) {
       return res.status(400).json({ error: "Invalid status" });
     }
@@ -64,10 +65,10 @@ const updateTicket = async (req, res) => {
       status,
       updatedAt: new Date(),
     };
-  } else if (userType === "Advertiser" && (title || description)) {
+  } else if (userRole === USER_ROLES.ADVERTISER && (title || description)) {
     if (status)
       return res.status(403).json({
-        error: `${userType} user is not allowed to update ticket status`,
+        error: `${userRole} user is not allowed to update ticket status`,
       });
 
     tickets[ticketIndex] = {
@@ -78,7 +79,7 @@ const updateTicket = async (req, res) => {
     };
   } else {
     return res.status(403).json({
-      error: `${userType} user is not allowed to update ticket`,
+      error: `${userRole} user is not allowed to update ticket`,
     });
   }
 

@@ -8,7 +8,7 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { useCurrentRole } from "@/hooks/useCurrentRole";
-import { USERS } from "@/lib/users";
+import { USER_ROLES } from "@/lib/users";
 import { TicketStatus as Status } from "@/types/Ticket";
 import { TICKET_STATUS } from "@/lib/ticket";
 import { useDispatch } from "react-redux";
@@ -39,11 +39,11 @@ const TicketStatus = ({
     }
   };
 
-  if (role === USERS.Advertiser) {
+  if (role === USER_ROLES.ADVERTISER) {
     return <Badge>{status}</Badge>;
   }
 
-  if (role === USERS.Support) {
+  if (role === USER_ROLES.SUPPORT) {
     return (
       <Select onValueChange={updateTicketStatusHandler}>
         <SelectTrigger className='w-[180px]'>

@@ -5,3 +5,8 @@ export const corsOptions = {
   origin: "http://localhost:5173",
   credentials: true,
 };
+
+export const USER_ROLES = {
+  ADVERTISER: 5001,
+  SUPPORT: 5002,
+};

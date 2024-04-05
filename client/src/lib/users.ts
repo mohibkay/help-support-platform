@@ -1,13 +1,21 @@
-import { UserType } from "@/types/User";
-
-const userList = [
-  { id: 1, username: "advertiser1", password: "password1", type: "Advertiser" },
-  { id: 3, username: "support1", password: "password1", type: "Support" },
-];
-
-const USERS: { [key in UserType]: UserType } = {
-  Advertiser: "Advertiser",
-  Support: "Support",
+const USER_ROLES = {
+  ADVERTISER: 5001,
+  SUPPORT: 5002,
 };
 
-export { USERS, userList };
+const userList = [
+  {
+    id: 1,
+    username: "advertiser1",
+    password: "password1",
+    role: USER_ROLES.ADVERTISER,
+  },
+  {
+    id: 3,
+    username: "support1",
+    password: "password1",
+    role: USER_ROLES.SUPPORT,
+  },
+];
+
+export { userList, USER_ROLES };

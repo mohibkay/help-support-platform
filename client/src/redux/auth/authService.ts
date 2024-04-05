@@ -5,8 +5,8 @@ import { BASE_URL } from "@/lib/routes";
 
 const loginUrl = `${BASE_URL}/users/login`;
 
-export const loginApi = async (userType: UserType) => {
-  const user = userList.find((user) => user.type === userType);
+export const loginApi = async (userRole: UserType) => {
+  const user = userList.find((user) => user.role === userRole);
 
   if (!user) {
     throw new Error("User not found");

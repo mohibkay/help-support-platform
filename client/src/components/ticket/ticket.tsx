@@ -10,7 +10,7 @@ import { TicketType } from "@/types/Ticket";
 import EditTicket from "./edit-ticket";
 import DeleteTicket from "./delete-ticket";
 import RoleGate from "../auth/role-gate";
-import { USERS } from "@/lib/users";
+import { USER_ROLES } from "@/lib/users";
 import TicketStatus from "./ticket-status";
 
 const Ticket = ({
@@ -38,7 +38,7 @@ const Ticket = ({
     <Card>
       <CardHeader className='flex flex-row items-baseline justify-between'>
         <CardTitle>{title}</CardTitle>
-        <RoleGate allowedRoles={[USERS.Advertiser]}>
+        <RoleGate allowedRoles={[USER_ROLES.ADVERTISER]}>
           <div>
             <EditTicket ticket={ticket} />
             <DeleteTicket ticketId={id} />

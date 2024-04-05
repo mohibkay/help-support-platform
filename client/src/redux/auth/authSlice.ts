@@ -3,14 +3,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
   isAuthenticated: boolean;
-  userType: UserType | null;
+  userRole: UserType | null;
   token: string | null;
   userData: User | null;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
-  userType: null,
+  userRole: null,
   token: null,
   userData: null,
 };
@@ -22,19 +22,19 @@ const authSlice = createSlice({
     login: (
       state,
       action: PayloadAction<{
-        userType: UserType;
+        userRole: UserType;
         token: string;
         userData: User;
       }>
     ) => {
       state.isAuthenticated = true;
-      state.userType = action.payload.userType;
+      state.userRole = action.payload.userRole;
       state.userData = action.payload.userData;
       state.token = action.payload.token;
     },
     logout: (state) => {
       state.isAuthenticated = false;
-      state.userType = null;
+      state.userRole = null;
       state.token = null;
       state.userData = null;
     },

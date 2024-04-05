@@ -8,7 +8,7 @@ import {
 import { formatDate } from "@/lib/utils";
 import { ArticleType } from "@/types/Article";
 import RoleGate from "../auth/role-gate";
-import { USERS } from "@/lib/users";
+import { USER_ROLES } from "@/lib/users";
 import ArticleCategory from "./article-category";
 import EditArticle from "./edit-article";
 import DeleteArticle from "./delete-article";
@@ -39,7 +39,7 @@ const Article = ({
     <Card>
       <CardHeader className='flex flex-row items-baseline justify-between'>
         <CardTitle>{title}</CardTitle>
-        <RoleGate allowedRoles={[USERS.Support]}>
+        <RoleGate allowedRoles={[USER_ROLES.SUPPORT]}>
           <div>
             <EditArticle article={article} />
             <DeleteArticle articleId={id} />
@@ -52,7 +52,7 @@ const Article = ({
         <p className='flex flex-col mt-4'>
           <span>Created: {readableCreatedAt}</span>
           <span>Updated: {readableUpdatedAt}</span>
-          <RoleGate allowedRoles={[USERS.Support]}>
+          <RoleGate allowedRoles={[USER_ROLES.SUPPORT]}>
             <span>Created By: {createdBy}</span>
           </RoleGate>
         </p>
