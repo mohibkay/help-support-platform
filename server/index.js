@@ -2,30 +2,61 @@ import express from "express";
 import { createHandler } from "graphql-http/lib/use/express";
 import { buildSchema } from "graphql";
 import { ruruHTML } from "ruru/server";
-
 import cors from "cors";
 import { corsOptions } from "./config.js";
 
 const schema = buildSchema(`
-  type Mutation {
-    setMessage(message: String): String
+  input MessageInput {
+    content: String
+    author: String
+  }
+
+  type Message {
+    id: ID!
+    content: String
+    author: String
   }
 
   type Query {
-    getMessage: String
+    getMessage(id: ID!): Message
+  }
+
+  type Mutation {
+    createMessage(input: MessageInput): Message
+    updateMessage(id: ID!, input: MessageInput): Message
   }
 `);
 
-const db = { message: "" };
+class Message {
+  constructor(id, { content, author }) {
+    this.id = id;
+    this.content = content;
+    this.author = author;
+  }
+}
+
+const db = {};
 
 const root = {
-  setMessage: ({ message }) => {
-    db.message = message;
-    return message;
+  getMessage({ id }) {
+    if (!db[id]) {
+      throw new Error(`No message exists with ${id}`);
+    }
+    return new Message(id, db[id]);
   },
 
-  getMessage: () => {
-    return db.message;
+  createMessage({ input }) {
+    const id = Math.floor(Math.random());
+    db[id] = input;
+    return new Message(id, input);
+  },
+
+  updateMessage({ id, input }) {
+    if (!db[id]) {
+      throw new Error(`No message exists with ${id}`);
+    }
+    db[id] = input;
+    return new Message(id, input);
   },
 };
 
