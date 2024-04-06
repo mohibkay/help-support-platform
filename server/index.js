@@ -7,34 +7,25 @@ import cors from "cors";
 import { corsOptions } from "./config.js";
 
 const schema = buildSchema(`
-  type RandomDie {
-    numSides: Int!
-    rollOnce: Int!
-    roll(numRolls: Int!): [Int]
+  type Mutation {
+    setMessage(message: String): String
   }
 
   type Query {
-    getDie(numSides: Int): RandomDie
+    getMessage: String
   }
 `);
 
-class RandomDie {
-  constructor(numSides) {
-    this.numSides = numSides;
-  }
-
-  rollOnce() {
-    return Math.ceil(Math.random() * this.numSides);
-  }
-
-  roll({ numRolls }) {
-    return Array.from({ length: numRolls }, () => this.rollOnce());
-  }
-}
+const db = { message: "" };
 
 const root = {
-  getDie({ numSides }) {
-    return new RandomDie(numSides || 6);
+  setMessage: ({ message }) => {
+    db.message = message;
+    return message;
+  },
+
+  getMessage: () => {
+    return db.message;
   },
 };
 
